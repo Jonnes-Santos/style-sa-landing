@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, keyframes, styled, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 
-
 // Animação de entrada
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -36,6 +35,9 @@ const ComingSoonContainer = styled(Box)({
   position: "relative",
   textAlign: "center",
   padding: "2rem",
+  "@media (max-width: 600px)": {
+    padding: "1rem",
+  },
 });
 
 const ContentWrapper = styled(Box)({
@@ -46,6 +48,9 @@ const ContentWrapper = styled(Box)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  "@media (max-width: 600px)": {
+    padding: "0 1rem",
+  },
 });
 
 const Overlay = styled(Box)({
@@ -65,6 +70,12 @@ const LogoContainer = styled(Box)(({ theme }) => ({
     width: "clamp(120px, 25vw, 180px)",
     height: "auto",
     filter: "drop-shadow(0 2px 8px rgba(255,255,255,0.5))",
+    "@media (max-width: 600px)": {
+      width: "100px",
+    },
+  },
+  "@media (max-width: 600px)": {
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -75,6 +86,11 @@ const BrandName = styled('span')({
   textTransform: 'uppercase',
   animation: `${shineAnimation} 3s ease-in-out infinite`,
   padding: '0 0.3em',
+  "@media (max-width: 600px)": {
+    letterSpacing: '0.1em',
+    display: 'block',
+    marginBottom: '0.5rem',
+  },
 });
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -87,6 +103,11 @@ const Title = styled(Typography)(({ theme }) => ({
   animation: `${fadeIn} 0.8s ease-out 0.3s both`,
   position: "relative",
   zIndex: 10,
+  "@media (max-width: 600px)": {
+    fontSize: "1.8rem",
+    letterSpacing: "0.05em",
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 const Subtitle = styled(Typography)(({ theme }) => ({
@@ -100,6 +121,12 @@ const Subtitle = styled(Typography)(({ theme }) => ({
   animation: `${fadeIn} 0.8s ease-out 0.6s both`,
   position: "relative",
   zIndex: 10,
+  "@media (max-width: 600px)": {
+    fontSize: "0.9rem",
+    lineHeight: 1.5,
+    marginBottom: theme.spacing(3),
+    padding: "0 1rem",
+  },
 }));
 
 const CountdownContainer = styled(Box)(({ theme }) => ({
@@ -111,6 +138,10 @@ const CountdownContainer = styled(Box)(({ theme }) => ({
   animation: `${fadeIn} 0.8s ease-out 0.9s both`,
   position: "relative",
   zIndex: 10,
+  "@media (max-width: 600px)": {
+    gap: "0.5rem",
+    marginBottom: theme.spacing(3),
+  },
 }));
 
 const CountdownBox = styled(Box)(({ theme }) => ({
@@ -131,6 +162,14 @@ const CountdownBox = styled(Box)(({ theme }) => ({
     backgroundColor: "rgba(0,0,0,0.8)",
     transform: "translateY(-5px)",
   },
+  "@media (max-width: 600px)": {
+    width: "4.5rem",
+    height: "4.5rem",
+  },
+  "@media (max-width: 400px)": {
+    width: "4rem",
+    height: "4rem",
+  },
 }));
 
 const CountdownValue = styled(Typography)(({ theme }) => ({
@@ -138,6 +177,12 @@ const CountdownValue = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   color: "#fff",
   lineHeight: 1,
+  "@media (max-width: 600px)": {
+    fontSize: "1.4rem",
+  },
+  "@media (max-width: 400px)": {
+    fontSize: "1.2rem",
+  },
 }));
 
 const CountdownLabel = styled(Typography)(({ theme }) => ({
@@ -147,6 +192,9 @@ const CountdownLabel = styled(Typography)(({ theme }) => ({
   textTransform: "uppercase",
   letterSpacing: "0.1em",
   marginTop: "0.3rem",
+  "@media (max-width: 600px)": {
+    fontSize: "0.5rem",
+  },
 }));
 
 const CTAButton = styled(Button)(({ theme }) => ({
@@ -164,6 +212,10 @@ const CTAButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#fff",
     transform: "translateY(-3px)",
     boxShadow: "0 5px 15px rgba(255,255,255,0.3)",
+  },
+  "@media (max-width: 600px)": {
+    padding: "0.7rem 1.5rem",
+    fontSize: "0.9rem",
   },
 }));
 
@@ -183,6 +235,14 @@ const FloatingImage = styled("img")(({ delay, left, top, zIndex }) => ({
   filter: "none",
   "@media (max-width: 768px)": {
     width: "clamp(80px, 15vw, 180px)",
+    opacity: 0.6,
+  },
+  "@media (max-width: 600px)": {
+    width: "70px",
+    opacity: 0.5,
+  },
+  "@media (max-width: 400px)": {
+    display: "none", // Esconde imagens flutuantes em telas muito pequenas
   },
 }));
 
@@ -196,6 +256,10 @@ const SocialLinks = styled(Box)(({ theme }) => ({
   gap: "clamp(1rem, 2vw, 1.5rem)",
   animation: `${fadeIn} 0.8s ease-out 1.5s both`,
   zIndex: 10,
+  "@media (max-width: 600px)": {
+    gap: "0.8rem",
+    bottom: "1rem",
+  },
 }));
 
 const SocialIcon = styled("a")(({ theme }) => ({
@@ -205,6 +269,9 @@ const SocialIcon = styled("a")(({ theme }) => ({
   "&:hover": {
     color: "#fff",
     transform: "translateY(-3px)",
+  },
+  "@media (max-width: 600px)": {
+    fontSize: "1rem",
   },
 }));
 
@@ -219,15 +286,6 @@ const wolfImages = [
   { src: "/sobre/s7.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
   { src: "/sobre/s8.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
   { src: "/sobre/s9.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
-  { src: "/sobre/s10.jpg", delay: 0.2, left: "5%", top: "10%", zIndex: 2 },
-  { src: "/sobre/s11.jpg", delay: 0.3, left: "75%", top: "15%", zIndex: 2 },
-  { src: "/sobre/s12.jpg", delay: 0.4, left: "15%", top: "70%", zIndex: 2 },
-  { src: "/sobre/s13.jpg", delay: 0.5, left: "80%", top: "65%", zIndex: 2 },
-  { src: "/sobre/s14.jpg", delay: 0.6, left: "25%", top: "25%", zIndex: 2 },
-  { src: "/sobre/s15.jpg", delay: 0.7, left: "65%", top: "40%", zIndex: 2 },
-  { src: "/sobre/s16.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
-  { src: "/sobre/s17.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
-  { src: "/sobre/s18.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
 ];
 
 const EstaticaStyleSA = () => {
@@ -297,7 +355,7 @@ const EstaticaStyleSA = () => {
         </LogoContainer>
 
         <Title variant="h1">
-           <BrandName>STYLE S&A</BrandName> 
+          <BrandName>STYLE S&A</BrandName> 
         </Title>
         <Title variant="h1">LOJA VIRTUAL</Title>
 
@@ -351,7 +409,12 @@ const EstaticaStyleSA = () => {
       </SocialLinks>
 
       {/* Dialog para captura de e-mail */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog 
+        open={openDialog} 
+        onClose={() => setOpenDialog(false)}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle>
           {isSubscribed ? "Inscrição Confirmada!" : "Receba Notificações"}
         </DialogTitle>
@@ -374,6 +437,16 @@ const EstaticaStyleSA = () => {
                 variant="outlined"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'rgba(255,255,255,0.2)',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'rgba(255,255,255,0.4)',
+                    },
+                  },
+                }}
               />
             </>
           )}
