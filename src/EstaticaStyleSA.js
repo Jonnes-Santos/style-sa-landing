@@ -235,14 +235,15 @@ const FloatingImage = styled("img")(({ delay, left, top, zIndex }) => ({
   filter: "none",
   "@media (max-width: 768px)": {
     width: "clamp(80px, 15vw, 180px)",
-    opacity: 0.6,
+    opacity: 0.7,
   },
   "@media (max-width: 600px)": {
     width: "70px",
-    opacity: 0.5,
+    opacity: 0.6,
   },
   "@media (max-width: 400px)": {
-    display: "none", // Esconde imagens flutuantes em telas muito pequenas
+    width: "60px",
+    opacity: 0.5,
   },
 }));
 
@@ -275,7 +276,7 @@ const SocialIcon = styled("a")(({ theme }) => ({
   },
 }));
 
-// Configuração das imagens flutuantes
+// Configuração das imagens flutuantes (todas visíveis)
 const wolfImages = [
   { src: "/sobre/s1.jpg", delay: 0.2, left: "5%", top: "10%", zIndex: 2 },
   { src: "/sobre/s2.jpg", delay: 0.3, left: "75%", top: "15%", zIndex: 2 },
@@ -286,6 +287,15 @@ const wolfImages = [
   { src: "/sobre/s7.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
   { src: "/sobre/s8.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
   { src: "/sobre/s9.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
+  { src: "/sobre/s10.jpg", delay: 0.2, left: "5%", top: "10%", zIndex: 2 },
+  { src: "/sobre/s11.jpg", delay: 0.3, left: "75%", top: "15%", zIndex: 2 },
+  { src: "/sobre/s12.jpg", delay: 0.4, left: "15%", top: "70%", zIndex: 2 },
+  { src: "/sobre/s13.jpg", delay: 0.5, left: "80%", top: "65%", zIndex: 2 },
+  { src: "/sobre/s14.jpg", delay: 0.6, left: "25%", top: "25%", zIndex: 2 },
+  { src: "/sobre/s15.jpg", delay: 0.7, left: "65%", top: "40%", zIndex: 2 },
+  { src: "/sobre/s16.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
+  { src: "/sobre/s17.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
+  { src: "/sobre/s18.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
 ];
 
 const EstaticaStyleSA = () => {
