@@ -1,7 +1,7 @@
 // src/EstaticaStyleSA.js
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, keyframes, styled, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
-import { Link } from "react-router-dom";
+
 
 // Animação de entrada
 const fadeIn = keyframes`
