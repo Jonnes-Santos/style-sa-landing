@@ -22,6 +22,13 @@ const shineAnimation = keyframes`
   100% { text-shadow: 0 0 8px rgba(255,255,255,0.5); }
 `;
 
+// Animação de pulsação para ícones mobile
+const pulseAnimation = keyframes`
+  0% { transform: scale(1); color: rgba(255,255,255,0.8); }
+  50% { transform: scale(1.2); color: #ff69b4; }
+  100% { transform: scale(1); color: rgba(255,255,255,0.8); }
+`;
+
 // Componentes estilizados
 const ComingSoonContainer = styled(Box)({
   width: "100vw",
@@ -111,6 +118,10 @@ const Title = styled(Typography)(({ theme }) => ({
     fontSize: "1.8rem",
     letterSpacing: "0.05em",
     marginBottom: theme.spacing(1),
+    textShadow: "0 2px 5px rgba(0,0,0,1), 0 0 10px rgba(255,255,255,0.5)",
+    backgroundColor: "rgba(0,0,0,0.7)",
+    padding: "0.5rem",
+    borderRadius: "5px",
   },
 }));
 
@@ -129,7 +140,10 @@ const Subtitle = styled(Typography)(({ theme }) => ({
     fontSize: "0.9rem",
     lineHeight: 1.5,
     marginBottom: theme.spacing(3),
-    padding: "0 1rem",
+    padding: "0.5rem",
+    backgroundColor: "rgba(0,0,0,0.7)",
+    borderRadius: "5px",
+    textShadow: "0 1px 2px rgba(0,0,0,1), 0 0 5px rgba(255,255,255,0.5)",
   },
 }));
 
@@ -280,6 +294,11 @@ const SocialIcon = styled("a")(({ theme }) => ({
   },
   "@media (max-width: 600px)": {
     fontSize: "1rem",
+    animation: `${pulseAnimation} 2s ease-in-out infinite`,
+    "&:hover": {
+      color: "#ff69b4",
+      transform: "scale(1.2)",
+    },
   },
 }));
 
