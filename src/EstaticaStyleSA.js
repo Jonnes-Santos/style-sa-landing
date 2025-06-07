@@ -276,26 +276,42 @@ const SocialIcon = styled("a")(({ theme }) => ({
   },
 }));
 
-// Configuração das imagens flutuantes (todas visíveis)
+const VisitorCounter = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "20px",
+  right: "20px",
+  backgroundColor: "rgba(0,0,0,0.7)",
+  padding: "8px 12px",
+  borderRadius: "20px",
+  color: "rgba(255,255,255,0.9)",
+  fontSize: "0.8rem",
+  zIndex: 100,
+  display: "flex",
+  alignItems: "center",
+  gap: "5px",
+  "@media (max-width: 600px)": {
+    top: "10px",
+    right: "10px",
+    fontSize: "0.7rem",
+    padding: "5px 8px",
+  },
+}));
+
+// Configuração das imagens flutuantes
 const wolfImages = [
-  { src: "/sobre/s1.jpg", delay: 0.2, left: "5%", top: "10%", zIndex: 2 },
-  { src: "/sobre/s2.jpg", delay: 0.3, left: "75%", top: "15%", zIndex: 2 },
-  { src: "/sobre/s3.jpg", delay: 0.4, left: "15%", top: "70%", zIndex: 2 },
-  { src: "/sobre/s4.jpg", delay: 0.5, left: "80%", top: "65%", zIndex: 2 },
-  { src: "/sobre/s5.jpg", delay: 0.6, left: "25%", top: "25%", zIndex: 2 },
-  { src: "/sobre/s6.jpg", delay: 0.7, left: "65%", top: "40%", zIndex: 2 },
+  { src: "/sobre/s1.jpg", delay: 0.2, left: "3%", top: "3%", zIndex: 2 },
+  { src: "/sobre/s2.jpg", delay: 0.3, left: "2%", top: "45%", zIndex: 2 },
+  { src: "/sobre/s3.jpg", delay: 0.4, left: "1%", top: "70%", zIndex: 2 },
+  { src: "/sobre/s4.jpg", delay: 0.5, left: "100%", top: "55%", zIndex: 2 },
+  { src: "/sobre/s5.jpg", delay: 0.6, left: "70%", top: "5%", zIndex: 2 },
+  { src: "/sobre/s6.jpg", delay: 0.7, left: "68%", top: "40%", zIndex: 2 },
   { src: "/sobre/s7.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
-  { src: "/sobre/s8.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
-  { src: "/sobre/s9.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
-  { src: "/sobre/s10.jpg", delay: 0.2, left: "5%", top: "10%", zIndex: 2 },
-  { src: "/sobre/s11.jpg", delay: 0.3, left: "75%", top: "15%", zIndex: 2 },
-  { src: "/sobre/s12.jpg", delay: 0.4, left: "15%", top: "70%", zIndex: 2 },
-  { src: "/sobre/s13.jpg", delay: 0.5, left: "80%", top: "65%", zIndex: 2 },
-  { src: "/sobre/s14.jpg", delay: 0.6, left: "25%", top: "25%", zIndex: 2 },
-  { src: "/sobre/s15.jpg", delay: 0.7, left: "65%", top: "40%", zIndex: 2 },
-  { src: "/sobre/s16.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
-  { src: "/sobre/s17.jpg", delay: 0.9, left: "70%", top: "30%", zIndex: 2 },
-  { src: "/sobre/s18.jpg", delay: 1.0, left: "30%", top: "75%", zIndex: 2 },
+  { src: "/sobre/s8.jpg", delay: 0.9, left: "85%", top: "30%", zIndex: 2 },
+  { src: "/sobre/s9.jpg", delay: 1.0, left: "70%", top: "75%", zIndex: 2 },
+  { src: "/sobre/s10.jpg", delay: 0.2, left: "15%", top: "10%", zIndex: 2 },
+  { src: "/sobre/s11.jpg", delay: 0.3, left: "78%", top: "15%", zIndex: 2 },
+  { src: "/sobre/s12.jpg", delay: 0.4, left: "18%", top: "70%", zIndex: 2 },
+  { src: "/sobre/s13.jpg", delay: 0.5, left: "82%", top: "65%", zIndex: 2 },
 ];
 
 const EstaticaStyleSA = () => {
@@ -309,8 +325,38 @@ const EstaticaStyleSA = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(0);
 
+  // Efeito para alterar o título da página
   useEffect(() => {
+    document.title = "Style S&A - Loja Virtual em Breve";
+    
+    // Criar link para o favicon dinamicamente
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = '/logo.jpg';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    
+    // Contador de visitas - integração com API
+    const fetchVisitorCount = async () => {
+      try {
+        // Substitua pela sua chamada de API real
+        // Exemplo com Firebase (configuração necessária)
+        // const count = await getVisitorCountFromFirebase();
+        // setVisitorCount(count);
+        
+        // Solução temporária com localStorage
+        const storedCount = localStorage.getItem('visitorCount');
+        const initialCount = storedCount ? parseInt(storedCount) : Math.floor(Math.random() * 500) + 100;
+        setVisitorCount(initialCount);
+        localStorage.setItem('visitorCount', (initialCount + 1).toString());
+      } catch (error) {
+        console.error("Erro ao buscar contador de visitas:", error);
+      }
+    };
+
+    fetchVisitorCount();
+
     const calculateTimeLeft = () => {
       const launchDate = new Date("August 1, 2025 00:00:00").getTime();
       const now = new Date().getTime();
@@ -332,20 +378,34 @@ const EstaticaStyleSA = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubscribe = () => {
-    // Aqui você pode adicionar a lógica para enviar o e-mail para seu backend
-    console.log("E-mail cadastrado:", email);
-    setIsSubscribed(true);
-    setTimeout(() => {
-      setOpenDialog(false);
-      setIsSubscribed(false);
-      setEmail("");
-    }, 3000);
+  const handleSubscribe = async () => {
+    try {
+      // Aqui você pode adicionar a lógica para enviar o e-mail para seu backend
+      // Exemplo com Firebase (configuração necessária):
+      // await saveEmailToFirebase(email);
+      
+      console.log("E-mail cadastrado:", email);
+      setIsSubscribed(true);
+      
+      setTimeout(() => {
+        setOpenDialog(false);
+        setIsSubscribed(false);
+        setEmail("");
+      }, 3000);
+    } catch (error) {
+      console.error("Erro ao cadastrar e-mail:", error);
+      alert("Ocorreu um erro ao cadastrar seu e-mail. Por favor, tente novamente.");
+    }
   };
 
   return (
     <ComingSoonContainer>
       <Overlay />
+      
+      <VisitorCounter>
+        <i className="fas fa-users"></i>
+        <span>{visitorCount.toLocaleString()} visitantes</span>
+      </VisitorCounter>
       
       {wolfImages.map((img, index) => (
         <FloatingImage
@@ -407,14 +467,8 @@ const EstaticaStyleSA = () => {
         <SocialIcon href="https://www.instagram.com/stylle_sea?igsh=cHU4d3lrZTY5cnJv" target="_blank" aria-label="Instagram">
           <i className="fab fa-instagram"></i>
         </SocialIcon>
-        <SocialIcon href="#" target="_blank" aria-label="Facebook">
-          <i className="fab fa-facebook-f"></i>
-        </SocialIcon>
-        <SocialIcon href="#" target="_blank" aria-label="Twitter">
-          <i className="fab fa-twitter"></i>
-        </SocialIcon>
-        <SocialIcon href="#" target="_blank" aria-label="Whatsapp">
-          <i className="fab fa-pinterest-p"></i>
+        <SocialIcon href="https://wa.me/message/RYSKRZYS6R6LP1" target="_blank" aria-label="WhatsApp">
+          <i className="fab fa-whatsapp"></i>
         </SocialIcon>
       </SocialLinks>
 
