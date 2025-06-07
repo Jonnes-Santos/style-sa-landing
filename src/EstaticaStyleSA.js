@@ -68,10 +68,14 @@ const LogoContainer = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(4),
   "& img": {
     width: "clamp(120px, 25vw, 180px)",
-    height: "auto",
+    height: "clamp(120px, 25vw, 180px)", // Tamanho igual para largura e altura
+    objectFit: "cover",
+    borderRadius: "50%", // Formato circular apenas para a logo
     filter: "drop-shadow(0 2px 8px rgba(255,255,255,0.5))",
+    border: "3px solid rgba(255,255,255,0.3)",
     "@media (max-width: 600px)": {
       width: "100px",
+      height: "100px",
     },
   },
   "@media (max-width: 600px)": {
@@ -219,12 +223,12 @@ const CTAButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const FloatingImage = styled("img")(({ delay, left, top, zIndex, mobileOnly }) => ({
+const FloatingImage = styled("img")(({ delay, left, top, zIndex, mobileOnly, size }) => ({
   position: "absolute",
   width: "clamp(100px, 20vw, 220px)",
   height: "auto",
   objectFit: "cover",
-  borderRadius: "8px",
+  borderRadius: "8px", // Formato retangular para as fotos flutuantes
   opacity: 0.8,
   zIndex: zIndex,
   animation: `${floatAnimation} 12s ease-in-out infinite, ${fadeIn} 1.5s ease-out ${delay}s both`,
@@ -235,16 +239,17 @@ const FloatingImage = styled("img")(({ delay, left, top, zIndex, mobileOnly }) =
   filter: "none",
   display: mobileOnly ? "none" : "block",
   "@media (max-width: 768px)": {
-    width: "clamp(80px, 15vw, 180px)",
+    width: size === 'large' ? "clamp(120px, 25vw, 180px)" : 
+           size === 'medium' ? "clamp(90px, 18vw, 150px)" : 
+           size === 'small' ? "clamp(60px, 12vw, 100px)" : 
+           "clamp(80px, 15vw, 180px)",
     opacity: 0.7,
     display: mobileOnly ? "block" : "block",
   },
   "@media (max-width: 600px)": {
-    width: "70px",
     opacity: 0.6,
   },
   "@media (max-width: 400px)": {
-    width: "60px",
     opacity: 0.5,
   },
 }));
@@ -316,18 +321,16 @@ const desktopImages = [
   { src: "/sobre/s13.jpg", delay: 0.5, left: "82%", top: "65%", zIndex: 2 },
 ];
 
-// Imagens adicionais que só aparecem no mobile
+// Imagens adicionais que só aparecem no mobile com tamanhos diferentes
 const mobileOnlyImages = [
-  { src: "/sobre/m1.jpg", delay: 0.1, left: "5%", top: "20%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m2.jpg", delay: 0.15, left: "80%", top: "20%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m3.jpg", delay: 0.2, left: "10%", top: "80%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m4.jpg", delay: 0.25, left: "75%", top: "80%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m5.jpg", delay: 0.3, left: "50%", top: "10%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m6.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m7.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m8.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m9.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
-  { src: "/sobre/m10.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m1.jpg", delay: 0.1, left: "5%", top: "20%", zIndex: 2, mobileOnly: true, size: 'large' },
+  { src: "/sobre/m2.jpg", delay: 0.15, left: "80%", top: "20%", zIndex: 2, mobileOnly: true, size: 'small' },
+  { src: "/sobre/m3.jpg", delay: 0.2, left: "10%", top: "80%", zIndex: 2, mobileOnly: true, size: 'medium' },
+  { src: "/sobre/m4.jpg", delay: 0.25, left: "75%", top: "80%", zIndex: 2, mobileOnly: true, size: 'large' },
+  { src: "/sobre/m5.jpg", delay: 0.3, left: "50%", top: "10%", zIndex: 2, mobileOnly: true, size: 'medium' },
+  { src: "/sobre/m6.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true, size: 'large' },
+  { src: "/sobre/m7.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true, size: 'large' },
+  { src: "/sobre/m8.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true, size: 'large' },
 ];
 
 const EstaticaStyleSA = () => {
@@ -437,6 +440,7 @@ const EstaticaStyleSA = () => {
           top={img.top}
           zIndex={img.zIndex}
           mobileOnly={img.mobileOnly}
+          size={img.size}
         />
       ))}
 
