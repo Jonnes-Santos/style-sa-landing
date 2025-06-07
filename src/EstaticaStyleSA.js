@@ -233,18 +233,7 @@ const FloatingImage = styled("img")(({ delay, left, top, zIndex }) => ({
   boxShadow: "0 5px 15px rgba(0,0,0,0.5)",
   transition: "all 0.5s ease",
   filter: "none",
-  "@media (max-width: 768px)": {
-    width: "clamp(80px, 15vw, 180px)",
-    opacity: 0.7,
-  },
-  "@media (max-width: 600px)": {
-    width: "70px",
-    opacity: 0.6,
-  },
-  "@media (max-width: 400px)": {
-    width: "60px",
-    opacity: 0.5,
-  },
+  // Removemos as media queries que alteravam a posição
 }));
 
 const SocialLinks = styled(Box)(({ theme }) => ({
@@ -297,12 +286,12 @@ const VisitorCounter = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Configuração das imagens flutuantes
+// Configuração das imagens flutuantes (mesma posição para mobile e desktop)
 const wolfImages = [
   { src: "/sobre/s1.jpg", delay: 0.2, left: "3%", top: "3%", zIndex: 2 },
   { src: "/sobre/s2.jpg", delay: 0.3, left: "2%", top: "45%", zIndex: 2 },
   { src: "/sobre/s3.jpg", delay: 0.4, left: "1%", top: "70%", zIndex: 2 },
-  { src: "/sobre/s4.jpg", delay: 0.5, left: "100%", top: "55%", zIndex: 2 },
+  { src: "/sobre/s4.jpg", delay: 0.5, left: "85%", top: "55%", zIndex: 2 },
   { src: "/sobre/s5.jpg", delay: 0.6, left: "70%", top: "5%", zIndex: 2 },
   { src: "/sobre/s6.jpg", delay: 0.7, left: "68%", top: "40%", zIndex: 2 },
   { src: "/sobre/s7.jpg", delay: 0.8, left: "10%", top: "50%", zIndex: 2 },
@@ -340,12 +329,6 @@ const EstaticaStyleSA = () => {
     // Contador de visitas - integração com API
     const fetchVisitorCount = async () => {
       try {
-        // Substitua pela sua chamada de API real
-        // Exemplo com Firebase (configuração necessária)
-        // const count = await getVisitorCountFromFirebase();
-        // setVisitorCount(count);
-        
-        // Solução temporária com localStorage
         const storedCount = localStorage.getItem('visitorCount');
         const initialCount = storedCount ? parseInt(storedCount) : Math.floor(Math.random() * 500) + 100;
         setVisitorCount(initialCount);
@@ -380,10 +363,6 @@ const EstaticaStyleSA = () => {
 
   const handleSubscribe = async () => {
     try {
-      // Aqui você pode adicionar a lógica para enviar o e-mail para seu backend
-      // Exemplo com Firebase (configuração necessária):
-      // await saveEmailToFirebase(email);
-      
       console.log("E-mail cadastrado:", email);
       setIsSubscribed(true);
       
