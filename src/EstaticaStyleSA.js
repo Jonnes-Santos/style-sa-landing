@@ -219,7 +219,7 @@ const CTAButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const FloatingImage = styled("img")(({ delay, left, top, zIndex }) => ({
+const FloatingImage = styled("img")(({ delay, left, top, zIndex, mobileOnly }) => ({
   position: "absolute",
   width: "clamp(100px, 20vw, 220px)",
   height: "auto",
@@ -233,7 +233,20 @@ const FloatingImage = styled("img")(({ delay, left, top, zIndex }) => ({
   boxShadow: "0 5px 15px rgba(0,0,0,0.5)",
   transition: "all 0.5s ease",
   filter: "none",
-  // Removemos as media queries que alteravam a posição
+  display: mobileOnly ? "none" : "block",
+  "@media (max-width: 768px)": {
+    width: "clamp(80px, 15vw, 180px)",
+    opacity: 0.7,
+    display: mobileOnly ? "block" : "block",
+  },
+  "@media (max-width: 600px)": {
+    width: "70px",
+    opacity: 0.6,
+  },
+  "@media (max-width: 400px)": {
+    width: "60px",
+    opacity: 0.5,
+  },
 }));
 
 const SocialLinks = styled(Box)(({ theme }) => ({
@@ -286,8 +299,8 @@ const VisitorCounter = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Configuração das imagens flutuantes (mesma posição para mobile e desktop)
-const wolfImages = [
+// Configuração das imagens flutuantes para desktop
+const desktopImages = [
   { src: "/sobre/s1.jpg", delay: 0.2, left: "3%", top: "3%", zIndex: 2 },
   { src: "/sobre/s2.jpg", delay: 0.3, left: "2%", top: "45%", zIndex: 2 },
   { src: "/sobre/s3.jpg", delay: 0.4, left: "1%", top: "70%", zIndex: 2 },
@@ -301,6 +314,20 @@ const wolfImages = [
   { src: "/sobre/s11.jpg", delay: 0.3, left: "78%", top: "15%", zIndex: 2 },
   { src: "/sobre/s12.jpg", delay: 0.4, left: "18%", top: "70%", zIndex: 2 },
   { src: "/sobre/s13.jpg", delay: 0.5, left: "82%", top: "65%", zIndex: 2 },
+];
+
+// Imagens adicionais que só aparecem no mobile
+const mobileOnlyImages = [
+  { src: "/sobre/m1.jpg", delay: 0.1, left: "5%", top: "20%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m2.jpg", delay: 0.15, left: "80%", top: "20%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m3.jpg", delay: 0.2, left: "10%", top: "80%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m4.jpg", delay: 0.25, left: "75%", top: "80%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m5.jpg", delay: 0.3, left: "50%", top: "10%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m6.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m7.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m8.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m9.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
+  { src: "/sobre/m10.jpg", delay: 0.35, left: "50%", top: "90%", zIndex: 2, mobileOnly: true },
 ];
 
 const EstaticaStyleSA = () => {
@@ -386,15 +413,30 @@ const EstaticaStyleSA = () => {
         <span>{visitorCount.toLocaleString()} visitantes</span>
       </VisitorCounter>
       
-      {wolfImages.map((img, index) => (
+      {/* Renderiza as imagens de desktop */}
+      {desktopImages.map((img, index) => (
         <FloatingImage
-          key={index}
+          key={`desktop-${index}`}
           src={img.src}
           alt=""
           delay={img.delay}
           left={img.left}
           top={img.top}
           zIndex={img.zIndex}
+        />
+      ))}
+      
+      {/* Renderiza as imagens adicionais para mobile */}
+      {mobileOnlyImages.map((img, index) => (
+        <FloatingImage
+          key={`mobile-${index}`}
+          src={img.src}
+          alt=""
+          delay={img.delay}
+          left={img.left}
+          top={img.top}
+          zIndex={img.zIndex}
+          mobileOnly={img.mobileOnly}
         />
       ))}
 
